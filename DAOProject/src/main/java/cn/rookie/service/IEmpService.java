@@ -4,22 +4,63 @@ package cn.rookie.service;
 import cn.rookie.vo.Emp;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * Created by Rookie on 2016/4/13.
- * Description:
+ * Description: 定义emp表业务层的执行标准
  * Project_name: DAOProject
  * Copyright (c) All Rights Reserved.
  */
 public interface IEmpService {
-    public boolean insert(Emp vo);
+    /**
+     * 实现雇员的增加
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    public boolean insert(Emp vo) throws Exception;
 
-    public boolean update(Emp vo);
+    /**
+     * 实现雇员的修改
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    public boolean update(Emp vo) throws Exception;
 
-    public boolean delete(Set<Integer> ids);
+    /**
+     * 实现雇员的删除
+     * @param ids
+     * @return
+     * @throws Exception
+     */
+    public boolean delete(Set<Integer> ids) throws Exception;
 
-    public Emp get(Integer id);
+    /**
+     * 获取某一个雇员
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public Emp get(int id) throws Exception;
 
-    public List<Emp> list();
+    /**
+     * 获取所有的雇员
+     * @return
+     * @throws Exception
+     */
+    public List<Emp> list() throws Exception;
+
+    /**
+     *
+     * @param currentPage
+     * @param lineSize
+     * @param column
+     * @param keyWord
+     * @return
+     * @throws Exception
+     */
+    public Map<String, Object> list(int currentPage, int lineSize,String column,String keyWord) throws Exception;
 }
