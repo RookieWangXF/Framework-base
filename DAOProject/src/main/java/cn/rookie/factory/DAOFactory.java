@@ -1,6 +1,8 @@
 package cn.rookie.factory;
 
+import cn.rookie.dao.IDeptDAO;
 import cn.rookie.dao.IEmpDao;
+import cn.rookie.dao.impl.DeptDaoImpl;
 import cn.rookie.dao.impl.EmpDaoImpl;
 
 import java.sql.Connection;
@@ -15,6 +17,10 @@ public class DAOFactory {
 
     public static IEmpDao getIEmpDaoInstance(Connection conn) {
         return new EmpDaoImpl(conn);
+    }
+
+    public static IDeptDAO getIDeptDaoInstance(Connection conn) {
+        return new DeptDaoImpl(conn);
     }
 }
 
