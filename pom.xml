@@ -10,8 +10,8 @@
     <version>1.0</version>
     <modules>
         <module>DAOProject</module>
-        <module>MyStructs</module>
         <module>MySpring</module>
+        <module>MyStruts</module>
     </modules>
 
     <build>
