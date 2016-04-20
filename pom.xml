@@ -12,6 +12,7 @@
         <module>DAOProject</module>
         <module>MySpring</module>
         <module>MyStruts</module>
+        <module>MyBatis</module>
     </modules>
 
     <build>

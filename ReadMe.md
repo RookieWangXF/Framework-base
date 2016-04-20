@@ -3,6 +3,7 @@
 >1. DAOProject
 >2. Mystructs
 >3. MySpring
+>4. MyBatis
 
 There is a ReadMe.txt file in each module with instructions 
 and the URL to view that application.
