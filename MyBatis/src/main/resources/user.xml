@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+    <user id="0">
+        <name>Alexia</name>
+        <age>12</age>
+        <sex>Female</sex>
+    </user>
+    <user id="1">
+        <name>Edward</name>
+        <age>23</age>
+        <sex>Male</sex>
+    </user>
+    <user id="2">
+        <name>Fei</name>
+        <age>27</age>
+        <sex>Female</sex>
+    </user>
+    <user id="3">
+        <name>Lei</name>
+        <age>64</age>
+        <sex>Male</sex>
+    </user>
+</users>

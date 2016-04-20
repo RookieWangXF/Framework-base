@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 引入db.properties属性文件 -->
+    <properties resource="db.properties" />
+    <!-- 为Java类型命名一个短的名字 -->
+    <typeAliases>
+        <typeAlias type="cn.rookie.bean.User" alias="_User" />
+        <typeAlias type="cn.rookie.bean.Order" alias="_Order" />
+        <typeAlias type="cn.rookie.bean.Classes" alias="_Classes" />
+        <typeAlias type="cn.rookie.bean.Teacher" alias="_Teacher" />
+        <typeAlias type="cn.rookie.bean.Student" alias="_Student" />
+        <typeAlias type="cn.rookie.bean.Reader" alias="_Reader" />
+        <!--
+        <package name="cn.rookie.bean" />   默认为包下的所有实体类设置别名，别名就是类名称
+        -->
+
+    </typeAliases>
+    <!-- 环境 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- 事务管理器 JDBC类型依靠使用连接的数据源来管理事务的作用域-->
+            <transactionManager type="JDBC" />
+            <!-- 配置数据库连接信息
+            1、直接配置数据库连接信息
+            2、在properties文件中配置-->
+            <!--
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis" />
+                <property name="username" value="root" />
+                <property name="password" value="root" />
+            </dataSource>
+            -->
+            <!-- 数据源
+            POOLED  数据源缓存，避免每次都要连接和生成连接实例而需要的验证时间
+            -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}" />
+                <property name="url" value="${url}" />
+                <property name="username" value="${name}" />
+                <property name="password" value="${password}" />
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 映射器 -->
+    <mappers>
+        <!-- 注册userMapper.xml文件，SQL的映射文件 使用相对路径 -->
+        <mapper resource="cn/rookie/bean/userMapper.xml"/>
+        <mapper resource="cn/rookie/bean/orderMapper.xml"/>
+        <mapper resource="cn/rookie/bean/classMapper.xml"/>
+        <mapper resource="cn/rookie/bean/readerMapper.xml"/>
+        <!-- 注册IUserMapper接口 -->
+        <mapper class="cn.rookie.bean.IUserMapper" />
+    </mappers>
+
+</configuration>

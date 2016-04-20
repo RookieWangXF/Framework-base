@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.rookie.bean.readerMapper">
+
+    <select id="selectReaderMoney" parameterType="_Reader"
+            resultType="_Reader">
+        SELECT * FROM reader WHERE 1=1
+        <if test="money!=null">
+            and money>#{money}
+        </if>
+    </select>
+
+    <select id="selectChoose" parameterType="_Reader"
+            resultType="_Reader">
+        SELECT * FROM reader WHERE 1=1
+        <choose>
+            <when test="userID==null">
+                and money>#{money}
+            </when>
+            <when test="readerID!=null">
+                and 2=2
+            </when>
+            <otherwise>
+
+            </otherwise>
+        </choose>
+    </select>
+    <select id="selectWhere" parameterType="_Reader"
+            resultType="_Reader">
+        SELECT * FROM reader
+        <where>
+            <if test="money!=null">
+                and money>#{money}
+            </if>
+            <if test="readerID!=null">
+                and 2=2
+            </if>
+        </where>
+    </select>
+    <update id="updateSet" parameterType="_Reader">
+        UPDATE reader
+        <set>
+            <if test="money!=null">
+                money=#{money},
+            </if>
+            <if test="readerID!=null">
+                userID=#{userID},
+            </if>
+        </set>
+        WHERE readerID=#{readerID}
+    </update>
+    <select id="selectForeach" parameterType="list" resultType="_Reader">
+        SELECT * FROM reader
+        <where>
+            readerID in
+            <foreach collection="list" item="item" index="index"
+                open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+    <insert id="insertForeach">
+        INSERT INTO reader (readerID,userID,money) VALUES
+        <foreach collection="list" item="item" index="key" open=""
+                 separator="," close="">
+            (#{item.readerID},#{item.userID},#{item.money})
+        </foreach>
+    </insert>
+</mapper>

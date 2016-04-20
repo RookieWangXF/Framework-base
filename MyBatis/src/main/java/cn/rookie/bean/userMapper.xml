@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 指定包名，名称为包名+sql映射文件名 -->
+<mapper namespace="cn.rookie.bean.userMapper">
+    <cache />  <!-- 开启二级缓存 -->
+    <!-- 在select标签中编写查询的SQL语句
+    1、id属性为getUser   要求唯一的
+    2、parameterType   指明查询时使用的参数类型
+    3、resultType   指明查询返回的结果集类型  -->
+    <select id="getUser" parameterType="int"
+            resultType="cn.rookie.bean.User">
+        <!-- 这样将查询的参数、返回值、类型都定义好了，根据ID查询到一个User对象 -->
+        SELECT * FROM users WHERE id=#{id}
+    </select>
+
+    <!-- 创建用户Create -->
+    <insert id="addUser" parameterType="_User">
+        INSERT INTO users(name,age) VALUES(#{name},#{age})
+    </insert>
+
+    <!-- 删除用户Delete -->
+    <delete id="deleteUser" parameterType="_User">
+        DELETE FROM users WHERE id=#{id}
+    </delete>
+
+    <!-- 修改用户Update -->
+    <update id="updateUser" parameterType="_User">
+        UPDATE users SET name=#{name},age=#{age} WHERE id=#{id}
+    </update>
+
+    <!-- 查询全部用户 -->
+    <select id="getAllUsers" resultType="_User">
+        SELECT * FROM users
+    </select>
+
+
+</mapper>
+<!-- 动态sql  即根据运行时候的状态，拼装成不同的sql
+    if
+    choose(when,otherwise)
+    trim(where set)
+    foreach-->
