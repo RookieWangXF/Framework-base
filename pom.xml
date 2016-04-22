@@ -13,6 +13,8 @@
         <module>MySpring</module>
         <module>MyStruts</module>
         <module>MyBatis</module>
+        <module>Struts2</module>
+        <module>Spring</module>
     </modules>
 
     <build>
