@@ -4,6 +4,7 @@ package cn.rookie.dao.impl;
 
 import cn.rookie.dao.IEmpDao;
 import cn.rookie.vo.Emp;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ import java.util.Set;
  * Copyright (c) All Rights Reserved.
  */
 public class EmpDaoImpl implements IEmpDao {
-
+    private static Logger logger = Logger.getLogger(EmpDaoImpl.class);
     private Connection conn;
     private PreparedStatement pstmt;
 
@@ -38,6 +39,7 @@ public class EmpDaoImpl implements IEmpDao {
         this.pstmt.setDate(4, new java.sql.Date(vo.getHiredate().getTime()));
         this.pstmt.setDouble(5, vo.getSal());
         this.pstmt.setDouble(6, vo.getComm());
+        logger.info("doCreate-sql:" + sql);
         return this.pstmt.executeUpdate() > 0;
     }
 
@@ -50,6 +52,7 @@ public class EmpDaoImpl implements IEmpDao {
         this.pstmt.setDouble(4, vo.getSal());
         this.pstmt.setDouble(5, vo.getComm());
         this.pstmt.setInt(6, vo.getEmpno());
+        logger.info("doUpdate-sql:" + sql);
         return this.pstmt.executeUpdate() > 0;
     }
 
@@ -58,6 +61,7 @@ public class EmpDaoImpl implements IEmpDao {
         String sql = "SELECT empno,ename,job,hiredate,sal,comm FROM emp WHERE empno = ?";
         this.pstmt = this.conn.prepareStatement(sql);
         this.pstmt.setInt(1, id);
+        logger.info("findById-sql:" + sql);
         ResultSet rs = this.pstmt.executeQuery();
         if (rs.next()) {
             vo = new Emp();
@@ -83,7 +87,7 @@ public class EmpDaoImpl implements IEmpDao {
             sql.append(iter.next()).append(",");
         }
         sql.delete(sql.length() - 1, sql.length()).append(")");
-        System.out.println(sql.toString());
+        logger.info("doRemoveBatch-sql:" + sql);
         this.pstmt = this.conn.prepareStatement(sql.toString());
         return this.pstmt.executeUpdate() == ids.size();
     }
@@ -92,6 +96,7 @@ public class EmpDaoImpl implements IEmpDao {
         List<Emp> all = new ArrayList<Emp>();
         String sql = "SELECT empno,ename,job,hiredate,sal,comm FROM emp";
         this.pstmt = this.conn.prepareStatement(sql);
+        logger.info("findAll-sql:" + sql);
         ResultSet rs = this.pstmt.executeQuery();
         while (rs.next()) {
             Emp vo = new Emp();
@@ -112,6 +117,7 @@ public class EmpDaoImpl implements IEmpDao {
                 "WHERE " + column + " LIKE ? LIMIT "+ currentPage * lineSize +","+lineSize;
         this.pstmt = this.conn.prepareStatement(sql);
         this.pstmt.setString(1, "%" + keyWord + "%");
+        logger.info("findAllSplit-sql:" + sql);
         ResultSet rs = this.pstmt.executeQuery();
         while (rs.next()) {
             Emp vo = new Emp();
@@ -130,6 +136,7 @@ public class EmpDaoImpl implements IEmpDao {
         String sql = "SELECT COUNT(empno) FROM emp WHERE " + column + " LIKE ? ";
         this.pstmt = this.conn.prepareStatement(sql);
         this.pstmt.setString(1, "%" + keyWord + "%");
+        logger.info("getAllCount-sql:" + sql);
         ResultSet rs = this.pstmt.executeQuery();
         if (rs.next()) {
             return rs.getInt(1);

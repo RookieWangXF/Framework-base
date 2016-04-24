@@ -6,10 +6,11 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>DAOProject</artifactId>
+
+    <artifactId>Spring-base</artifactId>
     <packaging>jar</packaging>
 
-    <name>DAOProject</name>
+    <name>Spring-base</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -23,13 +24,6 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.26</version>
-        </dependency>
-
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -37,9 +31,24 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.2.5.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.2.5.RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>c3p0</groupId>
             <artifactId>c3p0</artifactId>
             <version>0.9.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.26</version>
         </dependency>
     </dependencies>
 </project>

@@ -4,6 +4,7 @@ import cn.rookie.dbc.DatabaseConnection;
 import cn.rookie.factory.DAOFactory;
 import cn.rookie.service.IDeptService;
 import cn.rookie.vo.Dept;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Set;

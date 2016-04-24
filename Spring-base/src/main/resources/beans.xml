@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--
+        1. id命名为类名的首字母小写
+        2. class路径为类的全名称路径，根据此进行类的反射
+        3. property属性驱动执行一次setter方法
+            3.1 传入的值为基本数据类型，则 value =
+            3.2 传入的是引用型，则 ref
+        总结：一个bean即为一个java对象，靠无参的构造函数生成，一个property即为一次setter调用
+
+        Map container 参考P530 自定义spring框架
+
+        4. 设值别名 name
+        5. 设值作用域 scope
+    -->
+    <bean id="person" class="cn.rookie.bean.Person" name="#123,@123,asdgf**" scope="prototype">
+        <property name="axe" ref="axe"></property>
+        <property name="name" value="feifei"></property>
+    </bean>
+
+    <bean id="axe" class="cn.rookie.bean.Axe">
+
+    </bean>
+
+    <bean id="date" class="java.util.Date">
+
+    </bean>
+
+    <!--
+        1. 不同的层（DAO或者业务逻辑）都要针对接口进行编程,功能由实现类提供
+        2. axe是接口的类型，实际可以注入不同的实现类
+        3. class属性是不可以使用接口，必须实现类
+        4. 一个具体的类可以实现为多个bean，只要在引用的时候id唯一就可以
+    -->
+    <bean id="cnPerson" class="cn.rookie.service.impl.CNPersonImpl">
+        <property name="axe"  ref="stoneAxe"></property>
+    </bean>
+    <bean id="cnPerson2" class="cn.rookie.service.impl.CNPersonImpl">
+        <property name="axe"  ref="steelAxe"></property>
+    </bean>
+    <bean id="stoneAxe" class="cn.rookie.service.impl.StoneAxeImpl">
+
+    </bean>
+    <bean id="steelAxe" class="cn.rookie.service.impl.SteelAxeImpl">
+
+    </bean>
+
+    <!--
+        1. 设值注入，使用setter方法进行注入
+        2. 构造注入
+            2.1 使用构造函数进行注入
+            2.2 无需使用无参构造函数了
+            2.3 多个参数的时候可以指定每个参数的具体引用，基本数据类型可以指定相应的type类型
+    -->
+    <bean id="conPerson" class="cn.rookie.service.impl.PersonConServiceImpl">
+        <constructor-arg ref="steelAxe"></constructor-arg>
+    </bean>
+    <bean id="conPerson2" class="cn.rookie.service.impl.PersonConImpl2">
+        <constructor-arg ref="stoneAxe" index="2"></constructor-arg>
+        <constructor-arg value="feifei" index="0"></constructor-arg>
+        <constructor-arg value="12" index="1" type="int"></constructor-arg>
+    </bean>
+
+    <!--
+        1. 容器事件
+        2. 监听器
+        3. 注册
+    -->
+    <bean class="cn.rookie.event.EmailNotifier"/>
+    <!--
+        该bean在创建的时候会将ApplicationContext对象放入其中
+    -->
+    <bean id="personAware" class="cn.rookie.bean.PersonAware" />
+    <bean id="beanIdAware" class="cn.rookie.bean.BeanIdAware"/>
+    <!--
+        集合使用定制的标签
+    -->
+    <bean id="personCollection" class="cn.rookie.bean.PersonCollection">
+        <property name="schools">
+            <list>
+                <value>小学</value>
+                <value>中学</value>
+                <value>大学</value>
+            </list>
+        </property>
+        <property name="scores">
+            <map>
+                <entry key="数学" value="83"></entry>
+                <entry key="语文" value="81"></entry>
+                <entry key="英语" value="87"></entry>
+            </map>
+        </property>
+        <property name="phaseAxe">
+            <map>
+                <entry key="原始社会" value-ref="stoneAxe"></entry>
+                <entry key="农业社会" value-ref="steelAxe"></entry>
+            </map>
+        </property>
+        <property name="books">
+            <list>
+                <value>你好</value>
+                <value>我好</value>
+                <value>都好</value>
+            </list>
+        </property>
+        <property name="health">
+            <props>
+                <prop key="身高">1.75</prop>
+                <prop key="血压">正常</prop>
+            </props>
+        </property>
+        <property name="axes">
+            <set>
+                <value>普通字符串</value>
+                <bean class="cn.rookie.service.impl.StoneAxeImpl"></bean>
+                <ref bean="steelAxe"></ref>
+                <list>
+                    <value>20</value>
+                    <set>
+                        <value type="int">30</value>
+                    </set>
+                </list>
+            </set>
+        </property>
+    </bean>
+
+    <!--
+        配置静态工厂,class类应为生存Bean实例的静态工厂类
+        constructor-arg  配置静态工厂方法的参数
+        factory-method  指定静态工厂方法
+    -->
+    <bean id="dog" class="cn.rookie.factory.BeingFactory" factory-method="getBeing">
+        <constructor-arg value="dog" />
+        <property name="msg" value="我是狗"/>
+    </bean>
+    <bean id="cat" class="cn.rookie.factory.BeingFactory" factory-method="getBeing">
+        <constructor-arg value="cat" />
+        <property name="msg" value="我是猫"/>
+    </bean>
+
+    <!--
+        动态工厂
+        UserFacatory uf = container.get("userFactory")
+        chinese = uf.getPerson("chin")
+    -->
+    <bean id="userFactory" class="cn.rookie.factory.UserFactory"/>
+    <bean id="chinese" factory-bean="userFactory" factory-method="getUser">
+        <constructor-arg value="chin"></constructor-arg>
+    </bean>
+    <bean id="usa" factory-bean="userFactory" factory-method="getUser">
+        <constructor-arg value="usa"></constructor-arg>
+    </bean>
+
+    <!--
+        获取其他Bean类的get方法参数
+        targetBeanName 指定获取的bean名称
+    -->
+    <bean id="getPerson" class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
+        <property name="targetBeanName" value="person"></property>
+        <property name="propertyPath" value="name"></property>
+    </bean>
+
+    <!--
+        获取其他静态Field值  FieldRetrievingFactoryBean
+        1. 访问哪个类 targetClass
+        2. 访问哪个field  targetField
+        访问实例Field值
+        1. 指定哪个对象  targetObject
+        2. 指定访问的Field  targetField
+    -->
+    <bean id="getAge" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="targetClass" value="java.sql.Connection"></property>
+        <property name="targetField" value="TRANSACTION_SERIALIZABLE"></property>
+    </bean>
+    <!--
+        获取静态Method返回值  MethodInvokingFactoryBean
+        1. 调用哪个类 targetClass
+        2. 调用哪个方法 targetMethod
+        3. 调用方法的参数 arguments
+        获取实例方法的返回值
+        1. 调用哪个对象 targetObject
+        2. 调用哪个方法 targetMethod
+        3. 调用方法的参数 arguments
+    -->
+
+</beans>

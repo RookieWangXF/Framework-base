@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--
+        beans的属性：
+        1. default-autowire: no不使用自动装配；byname根据对应的名字自动装配；byType根据装入的类型进行装配
+            SetGunDog() 会查找 id为gunDog的bean
+            SetDog() 查找Dog类或者实现此接口的子类，只能有一个
+        2. default-autowire-candidates  设值false时候在上述查找时可将此bean略过
+        3. default-init-method="" 默认初始化方法
+        4. default-lazy-init=""  默认延迟初始化
+        5. default-merge="" 所有bean的默认merge行为
+        6 .default-autowire="" 默认自动装配方法
+        7. default-destroy-method="" 默认销毁方法
+
+        bean中的属性与其一致
+        8. id
+        9. class
+        10. name 指定别名，可以使用特殊字符
+        11. abstract 设值抽象bean，只能被其他bean继承，理解是更改一次，子bean都跟着更改了。
+        12. parent 子bean中的设置，与上一个对应。  继承不具备多态性，就是数值的传递
+    -->
+
+    <!--
+        beans的作用域：
+        1. singleton: 生存的bean只有一个
+        2. prototype: 每次get后都是一个新的实例
+
+        3. request：
+        4. session
+        5. global session
+    -->
+</beans>
