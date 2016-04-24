@@ -62,5 +62,16 @@ public interface IEmpService {
      * @return
      * @throws Exception
      */
-    public Map<String, Object> list(int currentPage, int lineSize,String column,String keyWord) throws Exception;
+    public List<Emp> findAllSplit(int currentPage, int lineSize,String column,String keyWord) throws Exception;
+
+
+    /**
+     * 模糊查询某一列中的数量
+     * @param column
+     * @param keyWord
+     * @return
+     * @throws Exception
+     */
+    public Integer getAllCount(String column, String keyWord) throws Exception;
+
 }

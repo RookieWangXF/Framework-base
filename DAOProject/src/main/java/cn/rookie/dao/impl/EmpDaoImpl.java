@@ -82,7 +82,8 @@ public class EmpDaoImpl implements IEmpDao {
         while (iter.hasNext()) {
             sql.append(iter.next()).append(",");
         }
-        sql.delete(sql.length() - 1, sql.length());
+        sql.delete(sql.length() - 1, sql.length()).append(")");
+        System.out.println(sql.toString());
         this.pstmt = this.conn.prepareStatement(sql.toString());
         return this.pstmt.executeUpdate() == ids.size();
     }
@@ -106,8 +107,23 @@ public class EmpDaoImpl implements IEmpDao {
     }
 
     public List<Emp> findAllSplit(Integer currentPage, Integer lineSize, String column, String keyWord) throws Exception {
-        //229
-        return null;
+        List<Emp> all = new ArrayList<Emp>();
+        String sql = "SELECT empno,ename,job,hiredate,sal,comm FROM emp " +
+                "WHERE " + column + " LIKE ? LIMIT "+ currentPage * lineSize +","+lineSize;
+        this.pstmt = this.conn.prepareStatement(sql);
+        this.pstmt.setString(1, "%" + keyWord + "%");
+        ResultSet rs = this.pstmt.executeQuery();
+        while (rs.next()) {
+            Emp vo = new Emp();
+            vo.setEmpno(rs.getInt(1));
+            vo.setEname(rs.getString(2));
+            vo.setJob(rs.getString(3));
+            vo.setHiredate(rs.getDate(4));
+            vo.setSal(rs.getDouble(5));
+            vo.setComm(rs.getDouble(6));
+            all.add(vo);
+        }
+        return all;
     }
 
     public Integer getAllCount(String column, String keyWord) throws Exception {

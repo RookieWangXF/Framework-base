@@ -74,17 +74,25 @@ public class EmpServiceImpl implements IEmpService {
         }
     }
 
-    public Map<String, Object> list(int currentPage, int lineSize, String column, String keyWord) throws Exception {
+    public List<Emp> findAllSplit(int currentPage, int lineSize, String column, String keyWord) throws Exception {
         try {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("allEmps", DAOFactory.getIEmpDaoInstance(this.dbc.getConnection()).findAllSplit(currentPage, lineSize, column, keyWord));
-            map.put("empCount", DAOFactory.getIEmpDaoInstance(this.dbc.getConnection()).getAllCount(column, keyWord));
-            return map;
+            return DAOFactory.getIEmpDaoInstance(this.dbc.getConnection()).findAllSplit(currentPage, lineSize, column, keyWord);
         } catch (Exception e) {
             throw e;
         } finally {
             this.dbc.close();
         }
 
+    }
+
+    @Override
+    public Integer getAllCount(String column, String keyWord) throws Exception {
+        try {
+            return DAOFactory.getIEmpDaoInstance(this.dbc.getConnection()).getAllCount(column,keyWord);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.dbc.close();
+        }
     }
 }

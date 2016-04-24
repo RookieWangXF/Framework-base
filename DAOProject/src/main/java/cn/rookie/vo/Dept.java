@@ -34,4 +34,9 @@ public class Dept implements Serializable {
     public void setLoc(String loc) {
         this.loc = loc;
     }
+
+    @Override
+    public String toString() {
+        return "deptno:"+this.deptno+" dname: "+this.dname+" loc: "+this.loc;
+    }
 }

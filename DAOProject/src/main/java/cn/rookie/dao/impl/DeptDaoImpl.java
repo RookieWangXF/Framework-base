@@ -55,7 +55,7 @@ public class DeptDaoImpl implements IDeptDAO{
         while (iter.hasNext()) {
             sql.append(iter.next()).append(",");
         }
-        sql.delete(sql.length() - 1, sql.length());
+        sql.delete(sql.length() - 1, sql.length()).append(")");
         this.pstmt = this.conn.prepareStatement(sql.toString());
         return this.pstmt.executeUpdate() == ids.size();
     }

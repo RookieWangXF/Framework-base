@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * Copyright (c) All Rights Reserved.
  */
 public class DatabaseConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/info";
+    private static final String URL = "jdbc:mysql:///info";
     private static final String USERNAME = "root";
     private static final String PASSWD = "root";
     private static final String DBDRIVER = "com.mysql.jdbc.Driver";
