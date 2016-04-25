@@ -186,4 +186,15 @@
         3. 调用方法的参数 arguments
     -->
 
+
+    <!--
+        1. Bean后处理器 BeanPostProcessor 执行顺序看P617
+        2. 容器后处理器 BeanFactoryPostProcessor
+    -->
+    <bean id="chinesePost" class="cn.rookie.post.bean.Chinese" init-method="init">
+        <property name="axe" ref="stoneAxe"></property>
+        <property name="name" value="依赖注入的值"></property>
+    </bean>
+    <bean class="cn.rookie.post.MyBeanPostProcessor"></bean>
+    <bean class="cn.rookie.post.MyBeanFactoryPostProcessor"></bean>
 </beans>
