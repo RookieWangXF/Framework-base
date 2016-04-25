@@ -29,6 +29,7 @@ public class ResourceTest {
         //InputStreamResource
         //ByteArrayResource 优先使用
         String file = "feifei";
+
         byte[] files = file.getBytes();
         ByteArrayResource bar = new ByteArrayResource(files);
         System.out.println(bar.getDescription()+ new String(bar.getByteArray()));
