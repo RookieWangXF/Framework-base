@@ -1,0 +1,29 @@
+application:表示应用本身
+    1. 在整个web应用的多个JSP、Servlet之间共享数据
+    2. 访问Web应用的参数配置
+
+config:获取web.xml中的字段
+
+exception: 用于查看异常信息
+
+out:代表页面输出流
+
+pageContext: 用于访问JSP之间的共享数据。可以访问page request session application范围的对象
+
+request:
+    每个request对象封装着用户的一次请求，所有的请求参数都在这个对象中；
+        参数包括：请求头 和 参数 (get+post)
+    同时代表本次请求范围，
+    forward之后参数还是存在的，链接是新的
+
+response：
+    代表服务器对客户端的响应，当输出是文档的时候，不仅仅是字符流
+    可以重定向请求  丢失所有请求参数，request范围的属性,链接是新的
+    在客户端增加cookie，cookie记录在用户本地，记录用户的特殊行为，下次登录时候，可以获取客户的相关信息,需要设置时间，不然会随着浏览器关闭就关闭了
+
+
+    cookie会一直留在客户机上，session访问结束后就消失了。
+
+session:
+    代表一次用户会话，从客户端与服务器端建立连接开始到 断开。
+    里边主要存的是键值对。

@@ -3,7 +3,45 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
-<web-app>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <context-param>
+        <param-name>driver</param-name>
+        <param-value>com.mysql.jdbc.Driver</param-value>
+    </context-param>
+    <context-param>
+        <param-name>url</param-name>
+        <param-value>jdbc:mysql://localhost:3306/test</param-value>
+    </context-param>
+    <context-param>
+        <param-name>user</param-name>
+        <param-value>root</param-value>
+    </context-param>
+    <context-param>
+        <param-name>pass</param-name>
+        <param-value>root</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>config</servlet-name>
+        <jsp-file>/jsp/config/getConfig.jsp</jsp-file>
+        <init-param>
+            <param-name>name</param-name>
+            <param-value>feifei</param-value>
+        </init-param>
+        <init-param>
+            <param-name>age</param-name>
+            <param-value>28</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>config</servlet-name>
+        <url-pattern>/config</url-pattern>
+    </servlet-mapping>
+
         <display-name>Archetype Created Web Application</display-name>
 
         <filter>
@@ -15,4 +53,8 @@
             <filter-name>struts2</filter-name>
             <url-pattern>/*</url-pattern>
         </filter-mapping>
+
+
+
 </web-app>
+
