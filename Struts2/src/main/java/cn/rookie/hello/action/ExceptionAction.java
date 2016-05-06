@@ -1,17 +1,16 @@
-package cn.rookie.action;
+package cn.rookie.hello.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * Created by Rookie on 2016/4/22.
+ * Created by Rookie on 2016/5/5.
  * Description:
  * Project_name: Framework-base
  * Copyright (c) All Rights Reserved.
  */
-public class HelloAction extends ActionSupport {
-
+public class ExceptionAction extends ActionSupport {
+    @Override
     public String execute() throws Exception {
-
-        return SUCCESS;
+        return super.execute();
     }
 }

@@ -25,11 +25,43 @@
 
 	-->
 	<package name="default" extends="struts-default">
+		<interceptors>
+			<interceptor name="mySimple" class="cn.rookie.interceptor.SimpleInterceptor">
+				<param name="name">简单拦截器</param>
+			</interceptor>
+			<interceptor name="myMethodSimple" class="cn.rookie.interceptor.MyFilterInterceptor">
+				<param name="name">拦截方法的拦截器</param>
+			</interceptor>
+		</interceptors>
 
+		<global-results>
+			<result name="exception">/exception/exception.jsp</result>
+			<result name="securityerror">/exception/securityerror.jsp</result>
+		</global-results>
 		<global-exception-mappings>
-			<exception-mapping exception="java.io.IOException" result="io">
-			</exception-mapping>
+			<exception-mapping result="securityerror"
+							   exception="cn.rookie.exception.model.SecurityBreachException"  />
+			<exception-mapping result="exception"
+							   exception="java.sql.SQLException" />
+			<exception-mapping result="exception"
+							   exception="java.io.IOException" />
+			<exception-mapping result="exception"
+							   exception="java.lang.ArithmeticException" />
+			<exception-mapping result="exception"
+							   exception="java.lang.ClassCastException" />
+			<exception-mapping result="exception"
+							   exception="java.lang.NegativeArraySizeException" />
+			<exception-mapping result="exception"
+							   exception="java.lang.ArrayIndexOutOfBoundsException" />
+			<exception-mapping result="exception"
+							   exception="java.lang.NullPointerException" />
+			<exception-mapping result="exception"
+							   exception="java.lang.NoSuchMethodException" />
+			<exception-mapping result="exception"
+							   exception="java.lang.Exception" />
 		</global-exception-mappings>
+
+
 		<!--
 			设置一个默认的action，当找不到请求处理的时候，默认使用这个
 			<default-action-ref name="index" />
@@ -41,13 +73,12 @@
 
 		<!-- If the URL is hello.action the call the execute method of class HelloWorldAction.
 		If the result returned by the execute method is success render the HelloWorld.jsp -->
-		<action name="hello" class="cn.rookie.action.HelloAction" method="execute">
-			<result name="success">/login.jsp</result>
+		<action name="index">
+			<result>/index.jsp</result>
 		</action>
 
-
-		<action name="MyAction" class="cn.rookie.action.MyAction">
-			<result>/WEB_INF/content/welcome.jsp</result>
+		<action name="MyAction" class="cn.rookie.hello.action.MyAction">
+			<result>/WEB-INF/content/welcome.jsp</result>
 		</action>
 
 		<!--
@@ -58,13 +89,64 @@
 			result： 当出现异常的时候，指定对应的逻辑视图名称
 		-->
 
-		<action name="exception" class="cn.rookie.action.ExceptionAction">
-			<exception-mapping exception="java.sql.SQLException" result="sql"/>
-			<result name="sql">/error.jsp</result>
-			<result name="io">/error.jsp</result>
+		<!--
+			定义的拦截器会在action执行前执行，
+		-->
+		<action name="hello" class="cn.rookie.hello.action.HelloWorldAction">
+			<result name="success">/hello/HelloWorld.jsp</result>
+
+			<!--配置系统默认的拦截器-->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<!--配置自定义的拦截器-->
+			<interceptor-ref name="mySimple"></interceptor-ref>
+			<interceptor-ref name="myMethodSimple">
+				<param name="excludeMethods">execute</param>
+			</interceptor-ref>
 		</action>
 
+		<action name="register" class="cn.rookie.register.action.Register">
+			<interceptor-ref name="timer" />
+			<interceptor-ref name="logger" />
+			<interceptor-ref name="defaultStack">
+				<param name="exception.logEnabled">true</param>
+				<param name="exception.logLevel">ERROR</param>
+			</interceptor-ref>
+			<result name="success">/register/thankyou.jsp</result>
+		</action>
 
+		<action name="save" class="cn.rookie.edit.action.EditAction" method="execute">
+			<result name="success">/edit/thankyou.jsp</result>
+		</action>
+
+		<action name="edit" class="cn.rookie.edit.action.EditAction" method="input">
+			<result name="input">/edit/edit.jsp</result>
+		</action>
+
+		<action name="causesecurityexception" class="cn.rookie.exception.action.ExceptionAction" method="throwSecurityException">
+			<result>/register/register.jsp</result>
+		</action>
+
+		<action name="causeexception" class="cn.rookie.exception.action.ExceptionAction" method="throwException">
+			<result>/register/register.jsp</result>
+		</action>
+
+		<action name="causenullpointerexception" class="cn.rookie.exception.action.ExceptionAction" method="throwNullPointerException">
+			<result>/register/register.jsp</result>
+		</action>
+
+		<action name="actionspecificexception" class="cn.rookie.exception.action.ExceptionAction" method="throwSecurityException">
+			<exception-mapping exception="cn.rookie.exception.model.SecurityBreachException"
+							   result="index" />
+			<result>/register/register.jsp</result>
+			<result name="index">/index.jsp</result>
+		</action>
+
+		<action name="wildcard">
+			<result type="redirectAction">
+				<param name="actionName">Start</param>
+				<param name="namespace">/form</param>
+			</result>
+		</action>
 	</package>
 
 

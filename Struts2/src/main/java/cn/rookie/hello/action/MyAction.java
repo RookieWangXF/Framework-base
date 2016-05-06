@@ -1,4 +1,4 @@
-package cn.rookie.action;
+package cn.rookie.hello.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 
