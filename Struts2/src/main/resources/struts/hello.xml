@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <!--
+		package
+		1. name 为了处理同一个Web应用中包含同名的Action的情况,可以互相继承
+		2. namespace 设置为URL当中的 命名空间+Action名
+	-->
+    <!--
+		action
+		1. name 用来指定所处理的请求的URl。
+			1.1 可以使用通配符设计name  name="*action"
+		2. method 设置处理的方法，是动态调用的。因此可以对一个action类编写多个<action>，只要name不一致就可以，使用不同的method进行处理
+		3. result 返回的视图
+	-->
+    <!--
+		result 注意返回的结果，不一定是jsp，也可以是一个html，freemarker,或者是其他的action。
+		1. name 该属性指定所配置的逻辑视图名
+		2. type 该属性指定结果类型
+			2.1 默认是dispatcher是将请求转发，redirect是请求重定向到指定资源，重定向会丢失所有的请求参数、属性。
+			2.2 redirectAction 重新生成一个新的请求，重定向到某一个action来处理。
+		global-results
+	-->
+    <package name="hello" extends="default">
+
+        <action name="MyAction" class="cn.rookie.hello.action.MyAction">
+            <result>/WEB-INF/content/welcome.jsp</result>
+        </action>
+
+        <!--定义的拦截器会在action执行前执行，这里专门用于拦截特定的action -->
+        <action name="helloworld" class="cn.rookie.hello.action.HelloWorldAction">
+            <result name="success">/hello/HelloWorld.jsp</result>
+
+            <!--配置系统默认的拦截器-->
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <!--配置自定义的拦截器-->
+            <interceptor-ref name="mySimple"></interceptor-ref>
+            <interceptor-ref name="myMethodSimple">
+                <param name="excludeMethods">execute</param>
+            </interceptor-ref>
+        </action>
+
+        <!-- 使用模糊判断，进入action-->
+        <action name="helloworld*" class="cn.rookie.hello.action.MyAction">
+            <param name="target">{1}</param>
+            <result name="success">/WEB-INF/content/welcome.jsp</result>
+        </action>
+
+        <!-- 使用模糊判断，进入action-->
+        <action name="*html*" class="cn.rookie.hello.action.MyAction">
+            <param name="target">{1}</param>
+            <result name="success">/hello/resultHtml.html</result>
+        </action>
+        <!-- 使用restful 方式 调用-->
+        <action name="movie/*" class="cn.rookie.hello.action.MovieAction">
+            <param name="id">{1}</param>
+            <result name="success">/hello/movie.jsp</result>
+        </action>
+
+    </package>
+</struts>

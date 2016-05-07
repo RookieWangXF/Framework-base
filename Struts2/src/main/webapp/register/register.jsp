@@ -13,11 +13,11 @@
 </head>
 <body>
     <s:form action="register">
-        <s:textfield name="personBean.name" label="Name"></s:textfield> <br />
-        <s:textfield name="personBean.email" label="Email"></s:textfield> <br />
-        <s:textfield name="personBean.age" label="Age"></s:textfield>
+        <s:textfield name="personBean.name" key="User"></s:textfield> <br />
+        <s:textfield name="personBean.email" key="Email"></s:textfield> <br />
+        <s:textfield name="personBean.age" key="Age"></s:textfield>
 
-        <s:submit/>
+        <s:submit key="login"/>
 
     </s:form>
 </body>

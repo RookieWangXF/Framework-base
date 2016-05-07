@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="register" extends="default">
+
+        <action name="register" class="cn.rookie.register.action.Register">
+            <interceptor-ref name="timer" />
+            <interceptor-ref name="logger" />
+            <interceptor-ref name="defaultStack">
+                <param name="exception.logEnabled">true</param>
+                <param name="exception.logLevel">ERROR</param>
+            </interceptor-ref>
+            <result name="success">/register/thankyou.jsp</result>
+        </action>
+
+    </package>
+</struts>

@@ -1,30 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
+	<!-- 以下配置要遵照对应的顺序，也即加载的顺序 -->
 
+	<!-- 常量配置 start-->
 	<!--
-		package
-		1. name 为了处理同一个Web应用中包含同名的Action的情况。
-		2. namespace 设置为URL当中的 命名空间+Action名
+		1. 常量配置可以在 struts.xml中，默认都是在struts-default.xml中配置的
+		2. 可以加载web.xml中的常量
 	-->
-	<!--
-		action
-		1. name 用来指定所处理的请求的URl。
-			1.1 可以使用通配符设计name  name="*action"
-		2. method 设置处理的方法，是动态调用的。因此可以对一个action类编写多个<action>，只要name不一致就可以，使用不同的method进行处理
-		3.
-	-->
+	<!-- 该属性指定需要Struts2处理的请求后缀，该属性的默认值是action，即所有匹配*.action的请求都由Struts2处理。 如果用户需要指定多个请求后缀，则多个后缀之间以英文逗号（,）隔开。 -->
+	<constant name="struts.action.extension" value="action" />
+	<!-- 是否启用开发模式(开发模式下设为true，这样可以打印出更详细的错误信息)[发布时:false] -->
+	<constant name="struts.devMode" value="false" />
+	<!-- struts配置文件改动后，是否重新加载(开发阶段最好true)[发布时:false] -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!-- 设置浏览器是否缓存静态内容(开发阶段最好false)[发布时:true] -->
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<!--解决乱码 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!-- 每次HTTP请求系统都重新加载资源文件[发布时:false] -->
+	<constant name="struts.i18n.reload" value="false" />
+	<!-- 用于加载国际化资源，不写默认 不加载 -->
+	<constant name="struts.custom.i18n.resources" value="mess"/>
+	<!-- 文件上传最大值 -->
+	<constant name="struts.multipart.maxSize" value="104857600" />
+	<!-- 让struts2支持动态方法调用 [发布时:false]-->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<!-- Action名称中是否还是用斜线 -->
+	<constant name="struts.enable.SlashesInActionNames" value="true" />
+	<!-- 允许标签中使用表达式语法 -->
+	<constant name="struts.tag.altSyntax" value="true" />
+	<!-- 对于WebLogic,Orion,OC4J此属性应该设置成true -->
+	<constant name="struts.dispatcher.parametersWorkaround" value="false" />
+	<!-- 注解扫描的包结尾名 -->
+	<constant name="struts.convention.package.locators" value="action" />
 
-	<!--
-		result
-		1. name 该属性指定所配置的逻辑视图名
-		2. type 该属性指定结果类型
-			2.1 默认是dispatcher是将请求转发，redirect是请求重定向到指定资源，重定向会丢失所有的请求参数、属性。
-			2.2 redirectAction 重新生成一个新的请求，重定向到某一个action来处理。
-		global-results
+	<constant name="struts.mapper.class" value="org.apache.struts2.dispatcher.mapper.Restful2ActionMapper" />
 
-	-->
+	<constant name="struts.mapper.alwaysSelectFullNamespace" value="false" />
+
+	<!-- 常量配置 end-->
+
+	<!-- 用于加载其他配置文件 -->
+	<include file="struts/hello.xml" />
+	<include file="struts/edit.xml" />
+	<include file="struts/exception.xml" />
+	<include file="struts/register.xml" />
+
 	<package name="default" extends="struts-default">
+		<!-- 配置拦截器 -->
 		<interceptors>
 			<interceptor name="mySimple" class="cn.rookie.interceptor.SimpleInterceptor">
 				<param name="name">简单拦截器</param>
@@ -34,10 +58,24 @@
 			</interceptor>
 		</interceptors>
 
+		<!-- 设置默认的action处理 当找不到请求处理的时候，默认使用这个-->
+		<default-action-ref name="index" />
+		<!-- 设置默认的处理类 -->
+		<default-class-ref class="com.opensymphony.xwork2.ActionSupport" />
+
 		<global-results>
 			<result name="exception">/exception/exception.jsp</result>
 			<result name="securityerror">/exception/securityerror.jsp</result>
 		</global-results>
+
+		<!--
+			异常处理机制
+			1. exception-mapping  用于查看指定的异常类型，和返回的结果类型
+			2. 根据返回的结果类型，设置对应的处理异常视图
+
+			exception: 指定异常类型
+			result： 当出现异常的时候，指定对应的逻辑视图名称
+		-->
 		<global-exception-mappings>
 			<exception-mapping result="securityerror"
 							   exception="cn.rookie.exception.model.SecurityBreachException"  />
@@ -61,95 +99,10 @@
 							   exception="java.lang.Exception" />
 		</global-exception-mappings>
 
-
-		<!--
-			设置一个默认的action，当找不到请求处理的时候，默认使用这个
-			<default-action-ref name="index" />
-		-->
-
-		<!-- If no class attribute is specified the framework will assume success and
-        render the result index.jsp -->
-		<!-- If no name value for the result node is specified the success value is the default -->
-
-		<!-- If the URL is hello.action the call the execute method of class HelloWorldAction.
-		If the result returned by the execute method is success render the HelloWorld.jsp -->
 		<action name="index">
 			<result>/index.jsp</result>
 		</action>
 
-		<action name="MyAction" class="cn.rookie.hello.action.MyAction">
-			<result>/WEB-INF/content/welcome.jsp</result>
-		</action>
-
-		<!--
-			异常处理机制
-			1. exception-mapping
-
-			exception: 指定异常类型
-			result： 当出现异常的时候，指定对应的逻辑视图名称
-		-->
-
-		<!--
-			定义的拦截器会在action执行前执行，
-		-->
-		<action name="hello" class="cn.rookie.hello.action.HelloWorldAction">
-			<result name="success">/hello/HelloWorld.jsp</result>
-
-			<!--配置系统默认的拦截器-->
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<!--配置自定义的拦截器-->
-			<interceptor-ref name="mySimple"></interceptor-ref>
-			<interceptor-ref name="myMethodSimple">
-				<param name="excludeMethods">execute</param>
-			</interceptor-ref>
-		</action>
-
-		<action name="register" class="cn.rookie.register.action.Register">
-			<interceptor-ref name="timer" />
-			<interceptor-ref name="logger" />
-			<interceptor-ref name="defaultStack">
-				<param name="exception.logEnabled">true</param>
-				<param name="exception.logLevel">ERROR</param>
-			</interceptor-ref>
-			<result name="success">/register/thankyou.jsp</result>
-		</action>
-
-		<action name="save" class="cn.rookie.edit.action.EditAction" method="execute">
-			<result name="success">/edit/thankyou.jsp</result>
-		</action>
-
-		<action name="edit" class="cn.rookie.edit.action.EditAction" method="input">
-			<result name="input">/edit/edit.jsp</result>
-		</action>
-
-		<action name="causesecurityexception" class="cn.rookie.exception.action.ExceptionAction" method="throwSecurityException">
-			<result>/register/register.jsp</result>
-		</action>
-
-		<action name="causeexception" class="cn.rookie.exception.action.ExceptionAction" method="throwException">
-			<result>/register/register.jsp</result>
-		</action>
-
-		<action name="causenullpointerexception" class="cn.rookie.exception.action.ExceptionAction" method="throwNullPointerException">
-			<result>/register/register.jsp</result>
-		</action>
-
-		<action name="actionspecificexception" class="cn.rookie.exception.action.ExceptionAction" method="throwSecurityException">
-			<exception-mapping exception="cn.rookie.exception.model.SecurityBreachException"
-							   result="index" />
-			<result>/register/register.jsp</result>
-			<result name="index">/index.jsp</result>
-		</action>
-
-		<action name="wildcard">
-			<result type="redirectAction">
-				<param name="actionName">Start</param>
-				<param name="namespace">/form</param>
-			</result>
-		</action>
 	</package>
-
-
-
 
 </struts>

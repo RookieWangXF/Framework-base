@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="edit" extends="default">
+
+        <action name="save" class="cn.rookie.edit.action.EditAction" method="execute">
+            <result name="success">/edit/thankyou.jsp</result>
+        </action>
+
+        <action name="edit" class="cn.rookie.edit.action.EditAction" method="input">
+            <result name="input">/edit/edit.jsp</result>
+        </action>
+
+    </package>
+</struts>
