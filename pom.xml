@@ -13,6 +13,7 @@
         <module>MyStruts</module>
         <module>Struts2</module>
         <module>Spring-base</module>
+        <module>FreeMarker</module>
     </modules>
 
     <build>
@@ -163,6 +164,13 @@
             </dependency>
 
             <!--spring end-->
+            <!--freemarker -->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.23</version>
+            </dependency>
+            <!--freemarker -->
         </dependencies>
     </dependencyManagement>
 </project>
