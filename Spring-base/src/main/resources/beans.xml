@@ -11,23 +11,25 @@
             3.2 传入的是引用型，则 ref
         总结：一个bean即为一个java对象，靠无参的构造函数生成，一个property即为一次setter调用
 
-        Map container 参考P530 自定义spring框架
-
         4. 设值别名 name
         5. 设值作用域 scope
     -->
+
+
     <bean id="person" class="cn.rookie.bean.Person" name="#123,@123,asdgf**" scope="prototype">
         <property name="axe" ref="axe"></property>
         <property name="name" value="feifei"></property>
     </bean>
 
     <bean id="axe" class="cn.rookie.bean.Axe">
-
     </bean>
 
     <bean id="date" class="java.util.Date">
-
     </bean>
+
+
+
+
 
     <!--
         1. 不同的层（DAO或者业务逻辑）都要针对接口进行编程,功能由实现类提供

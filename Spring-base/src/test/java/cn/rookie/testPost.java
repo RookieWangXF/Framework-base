@@ -13,14 +13,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Project_name: Framework-base
  * Copyright (c) All Rights Reserved.
  */
-public class TestPost {
+class TestPost {
     private ApplicationContext ctx;
     @Before
     public void setUp() {
         ctx = new ClassPathXmlApplicationContext("beans.xml");
     }
     @Test
-    public void testrPost() {
+    public void testPost() {
         Chinese c = (Chinese) ctx.getBean("chinesePost");
         c.useAxe();
     }

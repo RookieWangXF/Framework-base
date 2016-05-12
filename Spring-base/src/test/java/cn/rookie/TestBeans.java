@@ -12,14 +12,16 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
+import java.util.Date;
+
 /**
  * Created by Rookie on 2016/4/24.
  * Package name is cn.rookie
  * Description: ApplicationContext 是访问容器内部的接口类
  */
-public class TestBean {
+public class TestBeans {
     /**
-     * 1. 使用BeanFactory
+     * 使用BeanFactory容器
      */
     @Test
     public void testDefaultListableBeanFactory(){
@@ -38,10 +40,10 @@ public class TestBean {
         p.useAxe();
     }
     /**
+     * 使用ApplicationContext容器
      * 1. ClassPathXmlApplicationContext 从类加载路劲下搜索配置文件,类加载器总是稳定的
      * 2. FileSystemXmlApplicationContext 从文件系统的相对路径或者绝对路径去搜索配置文件
-     *
-     * 3. 优点：可以加载多个配置文件，构造函数重载了
+     * 优点：可以加载多个配置文件，构造函数重载了
      */
     @Test
     public void testClassPathXmlApplicationContext(){
@@ -63,8 +65,12 @@ public class TestBean {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml","beansCopy.xml");
         Person p = (Person) ctx.getBean("person");
         p.useAxe();
-
     }
 
-
+    @Test
+    public void getDate() {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
+        Date date = (Date) ctx.getBean("date");
+        System.out.println(date.toString());
+    }
 }

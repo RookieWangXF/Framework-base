@@ -13,7 +13,7 @@
         <module>MyStruts</module>
         <module>Struts2</module>
         <module>Spring-base</module>
-        <module>FreeMarker</module>
+        <module>MySpring</module>
     </modules>
 
     <build>
@@ -162,7 +162,6 @@
                 <artifactId>spring-aop</artifactId>
                 <version>${spring.version}</version>
             </dependency>
-
             <!--spring end-->
             <!--freemarker -->
             <dependency>
