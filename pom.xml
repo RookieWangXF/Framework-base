@@ -14,6 +14,7 @@
         <module>Struts2</module>
         <module>Spring-base</module>
         <module>MySpring</module>
+        <module>MyBatis</module>
     </modules>
 
     <build>
