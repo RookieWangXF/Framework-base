@@ -1,6 +1,7 @@
 package cn.rookie;
 
 import cn.rookie.annotation.bean.PersonAnno;
+import cn.rookie.annotation.bean.PersonAnnoConfig;
 import cn.rookie.annotation.controller.PersonControAnno;
 import cn.rookie.annotation.dao.PersonDaoAnno;
 import cn.rookie.annotation.service.PersonServiceAnno;
@@ -21,6 +22,7 @@ public class TestAnno {
     public void setUp() {
         ctx = new ClassPathXmlApplicationContext("beansAnno.xml");
     }
+
     @Test
     public void testDao() {
         PersonDaoAnno p = (PersonDaoAnno) ctx.getBean("personDaoAnno");
@@ -43,5 +45,9 @@ public class TestAnno {
         p.say();
     }
 
-
+    @Test
+    public void testPersonAnnoConfig() {
+        PersonAnnoConfig p = (PersonAnnoConfig) ctx.getBean("personAnnoConfigvalue");
+        p.say();
+    }
 }

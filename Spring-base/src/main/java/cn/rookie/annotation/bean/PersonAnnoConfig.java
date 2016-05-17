@@ -10,24 +10,20 @@ import javax.annotation.Resource;
 /**
  * Created by Rookie on 2016/4/25.
  * Package name is cn.rookie.annotation.bean
- * Description: 将此类注入到容器中
+ * Description:
  */
-@Component
-public class PersonAnno {
+@Component("personAnnoConfigvalue")
+public class PersonAnnoConfig {
 
     private IAxeService axe;
 
-    /**
-     * 注入属性
-     * @param axe
-     */
     @Resource(name = "steelAxe")
     public void setAxe(IAxeService axe) {
         this.axe = axe;
     }
 
     public void say() {
-        System.out.println("我是PersonAnno"+axe.chop());
+        System.out.println("我是personAnnoConfigvalue"+ axe.chop());
     }
 
     @PostConstruct
