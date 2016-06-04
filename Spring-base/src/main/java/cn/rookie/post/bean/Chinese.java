@@ -3,6 +3,8 @@ package cn.rookie.post.bean;
 import cn.rookie.bean.Axe;
 import cn.rookie.service.IAxeService;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 
 /**
  * Created by Rookie on 2016/4/25.

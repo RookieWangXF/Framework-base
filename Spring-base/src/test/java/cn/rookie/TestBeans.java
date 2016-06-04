@@ -8,9 +8,11 @@ import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 
 import java.util.Date;
 
@@ -72,5 +74,15 @@ public class TestBeans {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
         Date date = (Date) ctx.getBean("date");
         System.out.println(date.toString());
+    }
+
+    @Test
+    public void testProperty(){
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
+        Environment env = ctx.getEnvironment();
+        String[] properties = env.getDefaultProfiles();
+        for (String s : properties) {
+            System.out.println(s);
+        }
     }
 }

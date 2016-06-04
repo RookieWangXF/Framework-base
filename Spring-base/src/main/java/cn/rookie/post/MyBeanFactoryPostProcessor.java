@@ -1,6 +1,7 @@
 package cn.rookie.post;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
  * Project_name: Framework-base
  * Copyright (c) All Rights Reserved.
  */
-public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
+public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor{
 
     /**
      * Spring的ApplicationContext会默认扫描实现了BeanFactoryPostProcessor接口的子类，并执行接口中的方法
@@ -22,4 +23,6 @@ public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
         System.out.println("程序对Spring所做的BeanFactory的初始化没有改变...");
         System.out.println("Spring容器是：" + beanFactory);
     }
+
+
 }

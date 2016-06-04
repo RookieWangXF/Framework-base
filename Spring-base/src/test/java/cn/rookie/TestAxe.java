@@ -111,4 +111,10 @@ public class TestAxe {
     public void testgetAge(){
         System.out.println(ctx.getBean("getAge"));
     }
+
+    @Test
+    public void testModern(){
+        CNPersonImpl cnPerson = (CNPersonImpl)ctx.getBean("cnPerson-modern");
+        cnPerson.useAxe();
+    }
 }

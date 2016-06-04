@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
     <!--
@@ -17,13 +18,19 @@
 
 
     <bean id="person" class="cn.rookie.bean.Person" name="#123,@123,asdgf**" scope="prototype">
-        <property name="axe" ref="axe"></property>
+        <property name="axe">
+            <ref bean="axe" />
+        </property>
         <property name="name" value="feifei"></property>
     </bean>
 
     <bean id="axe" class="cn.rookie.bean.Axe">
+
     </bean>
 
+    <bean id="innerAxe" class="cn.rookie.bean.Axe$InnerAxe">
+
+    </bean>
     <bean id="date" class="java.util.Date">
     </bean>
 
@@ -40,6 +47,9 @@
     <bean id="cnPerson" class="cn.rookie.service.impl.CNPersonImpl">
         <property name="axe"  ref="stoneAxe"></property>
     </bean>
+    <bean id="cnPerson-modern" class="cn.rookie.service.impl.CNPersonImpl" p:axe-ref="stoneAxe">
+    </bean>
+
     <bean id="cnPerson2" class="cn.rookie.service.impl.CNPersonImpl">
         <property name="axe"  ref="steelAxe"></property>
     </bean>
@@ -62,8 +72,9 @@
     </bean>
     <bean id="conPerson2" class="cn.rookie.service.impl.PersonConImpl2">
         <constructor-arg ref="stoneAxe" index="2"></constructor-arg>
-        <constructor-arg value="feifei" index="0"></constructor-arg>
+        <constructor-arg type="java.lang.String" value="feifei" index="0"></constructor-arg>
         <constructor-arg value="12" index="1" type="int"></constructor-arg>
+        <constructor-arg name="useName" value="leilei"></constructor-arg>
     </bean>
 
     <!--

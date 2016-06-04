@@ -13,4 +13,7 @@ public class Axe {
         return "使用斧头砍柴";
     }
 
+    static class InnerAxe{
+        private String name;
+    }
 }
