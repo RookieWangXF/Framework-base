@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--
+        该bean在创建的时候会将容器对象放入其中
+    -->
+    <bean id="beanIdAware" class="cn.rookie.bean.aware.BeanIdAware"/>
+    <bean id="beanFactoryAwareDemo" class="cn.rookie.bean.aware.BeanFactoryAwareDemo"/>
+    <bean id="applicationContextAwareDemo" class="cn.rookie.bean.aware.ApplicationContextAwareDemo"/>
+
+    <bean id="getXMLConfig" class="cn.rookie.bean.aware.GetXMLConfig"></bean>
+
+    <bean id="axe" class="cn.rookie.bean.Axe"></bean>
+    <bean id="person" class="cn.rookie.bean.Person">
+        <property name="axe" ref="axe"></property>
+        <property name="name" value="rookie"/>
+    </bean>
+
+    <bean id="son" class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
+        <property name="targetBeanName" value="person"></property>
+        <property name="propertyPath" value="name"></property>
+    </bean>
+
+    <bean id="theAge" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="targetClass" value="java.sql.Connection"></property>
+        <property name="targetField" value="TRANSACTION_SERIALIZABLE"></property>
+    </bean>
+
+    <bean id="method" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+
+        <property name="targetObject" value="getXMLConfig"></property>
+        <property name="targetMethod" value="getMethod"></property>
+    </bean>
+</beans>

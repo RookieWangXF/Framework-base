@@ -35,7 +35,7 @@ public class TestBeans {
     }
     @Test
     public void testDefaultListableBeanFactory2(){
-        Resource isr = new FileSystemResource("src/main/resources/beans.xml");
+        Resource isr = new FileSystemResource("src/main/resources/define.xml");
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         new XmlBeanDefinitionReader(beanFactory).loadBeanDefinitions(isr);
         Person p = (Person) beanFactory.getBean("person");
@@ -57,7 +57,7 @@ public class TestBeans {
 
     @Test
     public void testFileSystemXmlApplicationContext(){
-        ApplicationContext fsx = new FileSystemXmlApplicationContext("src/main/resources/beans.xml");
+        ApplicationContext fsx = new FileSystemXmlApplicationContext("src/main/resources/define.xml");
         Person p = (Person) fsx.getBean("person");
         p.useAxe();
     }

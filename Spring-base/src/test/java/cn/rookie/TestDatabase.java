@@ -1,6 +1,5 @@
 package cn.rookie;
 
-import cn.rookie.bean.PersonAware;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.junit.Before;
 import org.junit.Test;

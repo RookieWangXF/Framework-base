@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd" >
+    <!--
+        spring容器只能控制Singleton实例的生命周期
+        实现接口的方式会有侵入性，配置的话污染小
+    -->
+    <bean id="steelAxe" class="cn.rookie.bean.SteelAxe"></bean>
+    <bean id="initializingBeanLife" class="cn.rookie.bean.life.InitializingBeanLife" init-method="init">
+        <property name="axe" ref="steelAxe"></property>
+        <property name="name" value="rookie"></property>
+    </bean>
+
+    <bean id="disposableBeanLife" class="cn.rookie.bean.life.DisposableBeanLife" destroy-method="close">
+        <property name="name" value="feifei"></property>
+        <property name="axe" ref="steelAxe"/>
+    </bean>
+
+    <!-- 这个bean后处理器会对所有的bean实例进行处理 -->
+    <bean class="cn.rookie.bean.life.BeanPostProcessorLife"></bean>
+
+    <bean class="cn.rookie.bean.life.BeanFactoryPostProcessorLife"></bean>
+</beans>

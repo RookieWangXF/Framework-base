@@ -1,6 +1,6 @@
 package cn.rookie.annotation.bean;
 
-import cn.rookie.service.IAxeService;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -12,17 +12,18 @@ import javax.annotation.Resource;
  * Package name is cn.rookie.annotation.bean
  * Description: 将此类注入到容器中
  */
+@Scope("singleton")
 @Component
 public class PersonAnno {
 
-    private IAxeService axe;
+    private IAxe axe;
 
     /**
      * 注入属性
      * @param axe
      */
     @Resource(name = "steelAxe")
-    public void setAxe(IAxeService axe) {
+    public void setAxe(IAxe axe) {
         this.axe = axe;
     }
 

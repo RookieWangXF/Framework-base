@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-
-
     <!--
-        1. 容器事件
-        2. 监听器
-        3. 注册
+        默认是使用的 singleton
     -->
-    <bean class="cn.rookie.event.EmailNotifier"/>
+    <bean id="singleton" class="cn.rookie.bean.scope.Singleton" scope="singleton">
+
+    </bean>
+
+    <bean id="prototype" class="cn.rookie.bean.scope.Prototype" scope="prototype">
+
+    </bean>
 
 </beans>

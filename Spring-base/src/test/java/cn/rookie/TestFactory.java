@@ -1,8 +1,7 @@
 package cn.rookie;
 
-import cn.rookie.factory.Being;
-import cn.rookie.factory.User;
-import cn.rookie.factory.impl.CnUser;
+import cn.rookie.bean.buildBean.Being;
+import cn.rookie.bean.buildBean.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;

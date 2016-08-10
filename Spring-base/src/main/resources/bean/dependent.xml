@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        1. 可以加入如下的参数类型 value ref bean list、set、map、pros
+        区别：
+        setter方式更加直观，在设值时，有时候没必要初始化就设值所有的依赖实例，会导致性能下降。
+        构造注入决定了依赖的注入顺序，这种依赖不会变化，只有组件的创建者知道依赖顺序。
+    -->
+    <bean id="setValue" class="cn.rookie.bean.dependent.SetValue">
+        <property name="name" value="Rookie"/>  <!-- 将value写在属性中可以减少标签的使用 -->
+    </bean>
+
+    <bean id="constructorValue" class="cn.rookie.bean.dependent.ConstructorValue">
+        <constructor-arg index="0" value="Rookie"/>
+        <constructor-arg index="1" value="28"/>
+    </bean>
+</beans>

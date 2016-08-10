@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="steelAxe" class="cn.rookie.bean.SteelAxe"></bean>
+    <bean id="stoneAxe" class="cn.rookie.bean.StoneAxe"></bean>
+
+    <bean id="personCollection" class="cn.rookie.bean.collection.PersonCollection">
+
+        <property name="schools">
+            <list>
+                <value>小学</value>
+                <value>中学</value>
+                <value>大学</value>
+            </list>
+        </property>
+
+        <property name="scores">
+            <map>
+                <entry key="数学" value="83"></entry>
+                <entry key="语文" value="81"></entry>
+                <entry key="英语" value="87"></entry>
+            </map>
+        </property>
+
+        <property name="phaseAxe">
+            <map>
+                <entry key="原始社会" value-ref="stoneAxe"></entry>
+                <entry key="农业社会" value-ref="steelAxe"></entry>
+            </map>
+        </property>
+
+        <property name="books">
+            <list>
+                <value>你好</value>
+                <value>我好</value>
+                <value>都好</value>
+            </list>
+        </property>
+
+        <property name="health">
+            <props>
+                <prop key="身高">1.75</prop>
+                <prop key="血压">正常</prop>
+            </props>
+        </property>
+
+        <property name="axes">
+            <set>
+                <value>普通字符串</value>
+                <bean class="cn.rookie.bean.StoneAxe"></bean>
+                <ref bean="steelAxe"></ref>
+                <list>
+                    <value>20</value>
+                    <set>
+                        <value type="int">30</value>
+                    </set>
+                </list>
+            </set>
+        </property>
+    </bean>
+</beans>

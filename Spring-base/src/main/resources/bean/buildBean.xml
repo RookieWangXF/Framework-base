@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--
+        创建bean的三种方式
+        1. 使用构造器创建->需要使用class的信息，否则不能执行反射
+        2. 静态工厂 指定工厂的类
+        3. 实例工厂
+    -->
+    <bean id="dog" class="cn.rookie.bean.buildBean.StaticFactory" factory-method="getBeing">
+        <constructor-arg value="dog"/>
+        <property name="msg" value="我是狗"/>
+    </bean>
+
+    <bean id="cat" class="cn.rookie.bean.buildBean.StaticFactory" factory-method="getBeing">
+        <constructor-arg value="cat"/>
+        <property name="msg" value="我是猫"/>
+    </bean>
+
+
+    <bean id="instanceFactory" class="cn.rookie.bean.buildBean.InstancFactory">
+
+    </bean>
+
+    <bean id="chinese" factory-bean="instanceFactory" factory-method="getUser">
+        <constructor-arg value="chinese"></constructor-arg>
+    </bean>
+
+    <bean id="american" factory-bean="instanceFactory" factory-method="getUser">
+        <constructor-arg value="american"></constructor-arg>
+    </bean>
+
+</beans>

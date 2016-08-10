@@ -1,6 +1,5 @@
 package cn.rookie.annotation.bean;
 
-import cn.rookie.service.IAxeService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -15,10 +14,10 @@ import javax.annotation.Resource;
 @Component("personAnnoConfigvalue")
 public class PersonAnnoConfig {
 
-    private IAxeService axe;
+    private IAxe axe;
 
     @Resource(name = "steelAxe")
-    public void setAxe(IAxeService axe) {
+    public void setAxe(IAxe axe) {
         this.axe = axe;
     }
 

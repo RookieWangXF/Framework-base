@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--
+        可以自动装配bean与bean之间的关系，但是自动装配显然会降低依赖关系的透明性和清晰性
+
+        byName:使用setter方法找对应的bean的id
+        byType:寻找对应参数的类型类进行装配，如果只有一个那么正好注入，如果有多个就会报出异常，没有则不注入
+    -->
+
+    <bean id="axe" class="cn.rookie.bean.Axe" ></bean>
+
+
+    <bean id="person" class="cn.rookie.bean.Person" autowire="byName">
+        <property name="axe" ref="axe"></property>
+    </bean>
+
+    <bean id="person2" class="cn.rookie.bean.Person" autowire="byType">
+
+    </bean>
+
+    <bean id="byType" class="cn.rookie.bean.auto.ByType" autowire="byType">
+        <property name="axe" ref="axe"></property>
+    </bean>
+</beans>
